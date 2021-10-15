@@ -1,20 +1,10 @@
-from tkinter import Tk
-from tkinter import Label
-from tkinter import Frame
-from tkinter import Button
-from tkinter import StringVar
-from tkinter import PhotoImage
-from tkinter import ttk
+from tkinter import Tk, Label, Frame, Button, StringVar, PhotoImage, ttk
 from PIL import ImageTk, Image
 import pytube.contrib.search
 from pytube import YouTube
-import tkinter as tk
-import os
-import stat
-import requests
+import os, stat, requests, tkinter as tk
 
 class search:
-    search1 = ""
     def __init__(self, words):
         self.search_words = str(pytube.contrib.search.Search(words).results)
         self.search_words_url = words
@@ -26,7 +16,7 @@ class search:
     def search_for(self):
         try:
             if "https://" in self.search_words_url:
-                return self.search_words_url
+                self.search1 = self.search_words_url
             else:
                 for x in self.search_words:
                     self.num += 1
@@ -40,24 +30,23 @@ class search:
                     if '>' in self.search_words[self.num]:
                         self.result1 = self.num
                         break
-                self.search1 = YouTube("https://www.youtube.com/watch?v=" + self.search_words[self.result:self.result1])
-            if "jpg" in self.search1.thumbnail_url:
-                try:
-                    os.chmod("video_image.png", stat.S_IWRITE)
-                    os.remove("video_image.png")
-                except FileNotFoundError:
-                    pass
-                video_Image = requests.get(self.search1.thumbnail_url).content
-                with open("video_image.png", "wb") as imagen:
-                    imagen.write(video_Image)
+                self.search1 = "https://www.youtube.com/watch?v=" + self.search_words[self.result:self.result1]
+            try:
+                os.chmod("video_image.png", stat.S_IWRITE)
+                os.remove("video_image.png")
+            except FileNotFoundError:
+                pass
+            video_Image = requests.get(YouTube(self.search1).thumbnail_url).content
+            with open("video_image.png", "wb") as imagen:
+                imagen.write(video_Image)
             Image.open("video_image.png").resize((200,100)).save('video_image.png','png')
-            return "https://www.youtube.com/watch?v=" + self.search_words[self.result:self.result1]
+            return self.search1
         except IndexError:
             pass
 
 class youtube:
     def __init__(self, windows):
-        windows.title("Youtube downloader")
+        windows.title("Youtube dowloader")
         windows.geometry("400x400")
         windows.minsize(width=400, height=400)
         windows.resizable(0,0)
