@@ -142,8 +142,11 @@ class youtube:
         self.B_B.place_forget()
         
     def on_closing(self):
-        os.chmod("video_image.png", stat.S_IWRITE)
-        os.remove("video_image.png")
-        self.close.destroy()
+        try:
+            os.chmod("video_image.png", stat.S_IWRITE)
+            os.remove("video_image.png")
+            self.close.destroy()
+        except:
+            self.close.destroy()
         
 youtube(windows=Tk())
