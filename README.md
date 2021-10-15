@@ -11,5 +11,5 @@ python main.py
 To run on linux
 ```sh
 chmod +x start.sh
-./start
+./start.sh
 ```
