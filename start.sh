@@ -10,5 +10,5 @@ else
     python3 -m pip install --upgrade Pillow
     clear
     echo Good Luck $(whoami)
-    python3 main.py
+    python3 main.pyw
 fi
