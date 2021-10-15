@@ -57,7 +57,7 @@ class search:
 
 class youtube:
     def __init__(self, windows):
-        windows.title("Youtube dowloader")
+        windows.title("Youtube downloader")
         windows.geometry("400x400")
         windows.minsize(width=400, height=400)
         windows.resizable(0,0)
