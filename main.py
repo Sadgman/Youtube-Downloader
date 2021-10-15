@@ -18,14 +18,14 @@ class search:
             if "https://" in self.search_words_url:
                 self.search1 = self.search_words_url
             else:
-                for x in self.search_words:
+                for _ in self.search_words:
                     self.num += 1
                     if '=' in self.search_words[self.num]:
                         self.num += 1
                         self.result = self.num
                         break
                 self.num = 0
-                for x in self.search_words:
+                for _ in self.search_words:
                     self.num += 1
                     if '>' in self.search_words[self.num]:
                         self.result1 = self.num
