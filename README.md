@@ -4,7 +4,7 @@ Download videos and audio with a graphical interface in python
 # Windows
 To run windows using Command Prompt
 ```sh
-python main.py
+python main.pyw
 ```
 
 # linux
