@@ -11,8 +11,8 @@ class search:
         self.result = ""
         self.result1 = ""
         self.num = 0
-        self.sr = self.search_for()
         self.search1 = ""
+    @property
     def search_for(self):
         try:
             if "https://" in self.search_words_url:
@@ -46,7 +46,7 @@ class search:
 
 class youtube:
     def __init__(self, windows):
-        windows.title("Youtube dowloader")
+        windows.title("Youtube downloader")
         windows.geometry("400x400")
         windows.minsize(width=400, height=400)
         windows.resizable(0,0)
@@ -71,7 +71,7 @@ class youtube:
 
     def video(self):
         try:
-            self.search = YouTube(search(self.T_V.get()).sr)
+            self.search = YouTube(search(self.T_V.get()).search_for)
             self.img = PhotoImage(file="video_image.png")
             self.image = Label(self.frame_video_Audio, image=self.img)
             self.image.place(x=100)
@@ -92,7 +92,7 @@ class youtube:
 
     def Audio(self):
         try:
-            self.search = YouTube(search(self.T_V.get()).sr)
+            self.search = YouTube(search(self.T_V.get()).search_for)
             self.img = PhotoImage(file="video_image.png")
             self.image = Label(self.frame_video_Audio, image=self.img)
             self.image.place(x=100)
@@ -100,7 +100,7 @@ class youtube:
             self.title.place(x=90, y=120)
             self.B_D = Button(self.frame_video_Audio, text="Download", width=30, command=lambda: self.search.streams.get_audio_only().download(filename=self.search.title + ".mp3"))
             self.B_D.place(x=90, y=190)
-            self.B_B = Button(self.frame_video_Audio, text="Back", width=10, command=self.Back)
+            self.B_B = Button(self.frame_w2video_Audio, text="Back", width=10, command=self.Back)
             self.B_B.place(x=10, y=360)
             self.E_W.place_forget()
             self.L_E.place_forget()
