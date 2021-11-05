@@ -3,6 +3,7 @@ from PIL import ImageTk, Image
 import pytube.contrib.search
 from pytube import YouTube
 import os, stat, requests, tkinter as tk
+name_image = "video_image.png"
 
 class search:
     def __init__(self, words):
@@ -32,14 +33,14 @@ class search:
                         break
                 self.search1 = "https://www.youtube.com/watch?v=" + self.search_words[self.result:self.result1]
             try:
-                os.chmod("video_image.png", stat.S_IWRITE)
-                os.remove("video_image.png")
+                os.chmod(name_image, stat.S_IWRITE)
+                os.remove(name_image)
             except FileNotFoundError:
                 pass
             video_Image = requests.get(YouTube(self.search1).thumbnail_url).content
-            with open("video_image.png", "wb") as imagen:
+            with open(name_image, "wb") as imagen:
                 imagen.write(video_Image)
-            Image.open("video_image.png").resize((200,100)).save('video_image.png','png')
+            Image.open(name_image).resize((200,100)).save(name_image,'png')
             return self.search1
         except IndexError:
             pass
@@ -72,7 +73,7 @@ class youtube:
     def video(self):
         try:
             self.search = YouTube(search(self.T_V.get()).search_for)
-            self.img = PhotoImage(file="video_image.png")
+            self.img = PhotoImage(file=name_image)
             self.image = Label(self.frame_video_Audio, image=self.img)
             self.image.place(x=100)
             self.title = Label(self.frame_video_Audio, text=self.search.title, bg="white")
@@ -93,14 +94,14 @@ class youtube:
     def Audio(self):
         try:
             self.search = YouTube(search(self.T_V.get()).search_for)
-            self.img = PhotoImage(file="video_image.png")
+            self.img = PhotoImage(file=name_image)
             self.image = Label(self.frame_video_Audio, image=self.img)
             self.image.place(x=100)
             self.title = Label(self.frame_video_Audio, text=self.search.title, bg="white")
             self.title.place(x=90, y=120)
             self.B_D = Button(self.frame_video_Audio, text="Download", width=30, command=lambda: self.search.streams.get_audio_only().download(filename=self.search.title + ".mp3"))
             self.B_D.place(x=90, y=190)
-            self.B_B = Button(self.frame_w2video_Audio, text="Back", width=10, command=self.Back)
+            self.B_B = Button(self.frame_video_Audio, text="Back", width=10, command=self.Back)
             self.B_B.place(x=10, y=360)
             self.E_W.place_forget()
             self.L_E.place_forget()
@@ -132,10 +133,10 @@ class youtube:
         
     def on_closing(self):
         try:
-            os.chmod("video_image.png", stat.S_IWRITE)
-            os.remove("video_image.png")
+            os.chmod(name_image, stat.S_IWRITE)
+            os.remove(name_image)
             self.close.destroy()
-        except:
+        except FileNotFoundError:
             self.close.destroy()
         
 youtube(windows=Tk())
