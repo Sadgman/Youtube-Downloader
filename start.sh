@@ -1,8 +1,8 @@
-version=$(python -V 2>&1 | grep -Po '(?<=Python )(.+)')
+version=$(python3 -V 2>&1 | grep -Po '(?<=Python )(.+)')
 
 if [[ -z "$version" ]]
 then
-    sudo apt-get install python 
+    sudo apt-get install python3 
 else
     pip install pytube
     pip install Pillow
