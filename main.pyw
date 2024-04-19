@@ -1,8 +1,14 @@
 from tkinter import Tk, Label, Frame, Button, StringVar, PhotoImage, ttk
-from PIL import ImageTk, Image
+from PIL import Image
 import pytube.contrib.search
 from pytube import YouTube
 import os, stat, requests, tkinter as tk
+try:
+    from ctypes import windll
+    windll.shcore.SetProcessDpiAwareness(1)
+except:
+    pass
+
 name_image = "video_image.png"
 
 class search:
@@ -48,22 +54,22 @@ class search:
 class youtube:
     def __init__(self, windows):
         windows.title("Youtube downloader")
-        windows.geometry("400x400")
-        windows.minsize(width=400, height=400)
+        windows.geometry("500x500")
+        windows.minsize(width=530, height=500)
         windows.resizable(0,0)
         windows.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.close = windows
         self.frame_video_Audio = Frame(windows, bg="white", width="400", height="400")
         self.T_V = StringVar()
         self.L_E = Label(windows, text="Enter a URL or a word")
-        self.L_E.place(x=139, y=30)
+        self.L_E.place(x=159, y=30)
         self.E_W = ttk.Entry(windows, width="30", textvariable=self.T_V, validate='key', validatecommand=(windows.register(self.D_E_W), '%P'))
-        self.E_W.place(x=107, y=50)
+        self.E_W.place(x=107, y=100)
         self.alert = Label(windows, text="Search not found", fg="red")
         self.B_A = Button(windows, text="Audio", width=30, state="disable", command=self.Audio)
-        self.B_A.place(x=90, y=140)
+        self.B_A.place(x=110, y=170)
         self.B_V = Button(windows, text="video", command=self.video, width=30, state="disable")
-        self.B_V.place(x=90, y=190)
+        self.B_V.place(x=110, y=220)
         self.title = 0
         self.image = 0
         self.B_B = 0
@@ -140,4 +146,3 @@ class youtube:
             self.close.destroy()
         
 youtube(windows=Tk())
-#end
